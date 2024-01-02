@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Store.Domain.Stores;
 using Store.Stores;
 
 namespace StoreApi.Stores
@@ -16,11 +17,14 @@ namespace StoreApi.Stores
             _storeService = storeService;
         }
 
-        [HttpPut("stores/{storeId}/products/{productId}")]
+        [HttpPut("stores/{storeId}/product/{productId}")]
         public IActionResult AddProductToStore(string storeId, string productId)
         {
             var addProduct = new AddProduct { StoreId = storeId, ProductId = productId };
             var result = _storeService.AddProduct(addProduct);
+
+            
+
             if (!result) return BadRequest();
             return Ok();
         }
